@@ -101,7 +101,7 @@ If you want to show the diagram stepwise you have to create control buttons. Sin
         </div>
     </div>  
   
-The last step is calling draw-cld with the complete parameter set to false:
+The last step is calling draw-cld with the complete parameter set to *false*:
   
     rcld_123.draw_cld(nodes, edges, false)
   

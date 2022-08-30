@@ -35,7 +35,7 @@ The head of your HTML page should look like this:
       </style>
     </head>
 
-First you have to declare a canvas and info area. The names must be unique on this page (svg_456), and the info div has to be named in the following way: <name of the svg canvas>_info (svg_456_info):
+First you have to declare a canvas and info area. The names must be unique on this page (*svg_456*), and the info div has to be named in the following way: <name of the svg canvas>_info (*svg_456_info*):
 
     <div class="row mt-3">
         <div class="col-md-9">
@@ -66,7 +66,7 @@ With
   
     var rcld_456 = new RoughCld("svg_456")
 
-you have to use the name of your canvas div (svg_456). If you want to draw more then one causal loop on one page you have to declare an unique name for each class instance (rcld_456).
+you have to use the name of your canvas div (*svg_456*). If you want to draw more then one causal loop on one page you have to declare an unique name for each class instance (*rcld_456*).
   
 Nodes have the following structure:
   
@@ -88,11 +88,11 @@ Edges have a similar structure:
   - Then you declare the title of your popver dialog.
   - Last you write the additional infos for this node.
 
-If you want to show the complete diagram, you call
+If you want to show the complete (*true*) diagram, you call
   
     rcld_456.draw_cld(nodes, edges, true)
 
-If you want to show the diagram stepwise you have to create control buttons. Since index.html has two diagrams on the same page, I had to declare a second class (rcld_123):
+If you want to show the diagram stepwise you have to create control buttons. Since index.html has two diagrams on the same page, I had to declare a second class (*rcld_123*):
   
     <div class="col-12">
         <div class="btn-group" role="group" aria-label="forward / backward">

@@ -1,8 +1,9 @@
-# rough_cld
-Causal Loop Diagram with roughjs
+# Causal Loop Diagram with roughjs
+
+rough_cld
 
 You can draw causal loop diagrams (CLD). This library uses roughjs for handdrawn circles and connections. You can draw multiple
-diagrams on one page. Rough_cld is bases on Bottstrap (>= 5.2) .
+diagrams on one page. Rough_cld is based on Bootstrap (>= 5.2) .
 
 * You can show the diagram complete expanded. For every node and edge you can add some informations, which are displayed as popovers.
 * Or you can show the diagram stepwise. In this case informations to each node or edge are shown beside the diagram. If you want you can go backward.
@@ -32,7 +33,7 @@ The head of your HTML page should look like this:
             text-decoration: none;
           }
       </style>
-  </head>
+    </head>
 
 First you have to declare a canvas and info area. The names must be unique on this page (svg_456), and the info div has to be named in the following way: <name of the svg canvas>_info (svg_456_info):
 
@@ -65,13 +66,13 @@ With
   
     var rcld_456 = new RoughCld("svg_456")
 
-you have to use the name of your canvas div (svg_456). If you want to draw more then one causal loop on one page you have to declare an unique name for your class instance (rcld_456).
+you have to use the name of your canvas div (svg_456). If you want to draw more then one causal loop on one page you have to declare an unique name for each class instance (rcld_456).
   
 Nodes have the following structure:
   
   - First item is an id.
-  - Second you describe the x position
-  - Then you declare the y position
+  - Second you describe the x position.
+  - Then you declare the y position.
   - Every node can have a different color.
   - Next you describe the URL for more informations for this node. Normally you fill in "#".
   - Then you declare the title of your popver dialog.
@@ -81,7 +82,7 @@ Edges have a similar structure:
   
   - First item is an id from which node the connection is starting.
   - Second id describes the target of your connection.
-  - With the bend parameter you tell the connector how much it is curved. With "+" and "-" you can change the side of the curved connection.
+  - With the *bend* parameter you tell the connector how much it is curved. With "+" and "-" you can change the side of the curved connection (100 vs -100).
   - "1" means strengthening influence (+); -"1" means weakening influence.
   - Next you describe the URL for more informations for this node. Normally you fill in "#".
   - Then you declare the title of your popver dialog.
@@ -91,7 +92,7 @@ If you want to show the complete diagram, you call
   
     rcld_456.draw_cld(nodes, edges, true)
 
-If you want to show the diagram stepwise you have to create control buttons. Since in index.html are two diagrams on the same page, I had to declare a second class (rcld_123):
+If you want to show the diagram stepwise you have to create control buttons. Since index.html has two diagrams on the same page, I had to declare a second class (rcld_123):
   
     <div class="col-12">
         <div class="btn-group" role="group" aria-label="forward / backward">
@@ -104,4 +105,3 @@ The last step is calling draw-cld with the complete parameter set to false:
   
     rcld_123.draw_cld(nodes, edges, false)
   
-

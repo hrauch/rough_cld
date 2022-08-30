@@ -11,7 +11,7 @@ diagrams on one page. Rough_cld is bases on Bottstrap (>= 5.2) .
 
 The head of your HTML page should look like this:
 
-  <head>
+    <head>
       <title>SVG Test</title>
       <meta charset="utf-8">
 

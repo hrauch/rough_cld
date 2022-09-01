@@ -4,7 +4,7 @@
  * Author: Hans Rauch
  * License: MIT License
  * Created: 2022-08-30
- * Version: 0.80
+ * Version: 0.85
  *
  * Draws causal loop diagrams in rough mode.
 */
@@ -22,9 +22,6 @@ class RoughCld {
     plus_color = '#bfee3f'
     minus_color = '#f562a3'
     strength_fill_style = 'cross-hatch'
-    light_3_blue = '#e0e0ff'
-    light_2_blue = '#a0a0ff'
-    light_1_blue = '#7070ff'
 
     r = 60        // radius for nodes
     nodes = []
@@ -32,7 +29,6 @@ class RoughCld {
 
     constructor(canvas_name) {
         this.info = document.getElementById(canvas_name + "_info")
-        console.log(this.info)
         this.svg = document.getElementById(canvas_name)
         this.rc = rough.svg(this.svg)
     }
@@ -107,12 +103,58 @@ class RoughCld {
         // Base point for center perpendicular
         let Bac = {x: A.x + dx /2, y: A.y + dy / 2}
         // B is in the middle of A and C and is <bend> away from the connecting line
-        let v = Math.asin(h / w)
-        let B = {x: Bac.x - edge.bend * Math.sin(v), y: Bac.y - edge.bend * Math.cos(v)}
+        let v = 0
+        if (w != 0) {
+            v = Math.asin(h / w)
+            let v2 = Math.atan(dy / dx)
+        }
+        if (Bac.x <= A.x) {
+            v += Math.PI / 2
+        } else {
+            if (Bac.y <= C.y) {
+                if (Bac.y == C.y) {
+                    v -= Math.PI / 2
+                }
+            } else {
+                v += Math.PI
+            }
+        }
+
+        let B = {x: 0, y: 0}
+        
+        let b_slope = 0
+        if (dx != 0) {
+            if (dy == 0) {
+                if (dx > 0) {
+                    b_slope = Math.PI / 2
+                } else {
+                    b_slope = -Math.PI / 2
+                }
+            } else {
+                b_slope = -1 / (dy / dx)
+            }
+        } else {
+            b_slope = 0
+        }
+        if (dy > 0) {
+            B.x = Bac.x + edge.bend * Math.cos(b_slope)
+            B.y = Bac.y + edge.bend * Math.sin(b_slope)
+        } else {
+            B.x = Bac.x - edge.bend * Math.cos(b_slope)
+            B.y = Bac.y - edge.bend * Math.sin(b_slope)
+        }
         // Angle between points C and B
         let vCB = Math.atan((C.y - B.y) / (C.x - B.x))
+        // correct the angle
+        if ((C.x > A.x) || ((C.x == A.x) && (C.y < A.y))) {
+            vCB += Math.PI
+        }
         // Cb is on the circle (this.r+5)
-        if (edge.bend > 0) {
+        if (edge.bend < 0) {
+            vCB += Math.PI
+            if (C.x == A.x){
+                vCB -= Math.PI
+            }
             Cb = {x: C.x - (this.r + 5) * Math.cos(vCB), y: C.y - (this.r + 5) * Math.sin(vCB)}
         } else {
             Cb = {x: C.x + (this.r + 5) * Math.cos(vCB), y: C.y + (this.r + 5) * Math.sin(vCB)}
@@ -127,24 +169,34 @@ class RoughCld {
 
         // curved connecting line
         let points = [[A.x, A.y], [B.x, B.y], [Cb.x, Cb.y]]
-        let b = this.rc.curve(points, {stroke: 'black', strokeWidth: 1, roughness: 1.5})
+        let b = this.rc.curve(points, {stroke: 'black', strokeWidth: Math.abs(edge.strength), roughness: 1.5})
         link.appendChild(b)
+
         // Arrow
-        let aLeft = vCB - 0.3
-        let aRight = vCB + 0.6
+        let a_left = 0
+        let a_right = 0
         let aLength = 20
         let l = null
         if (edge.bend > 0) {
-            l = this.rc.line(Cb.x, Cb.y, Cb.x - aLength * Math.cos(aLeft), Cb.y - 20 * Math.sin(aLeft), {strokeWidth: 2})
+            a_left = vCB - 0.3 + Math.PI
+            a_right = vCB + 0.6 + Math.PI
+            l = this.rc.line(Cb.x, Cb.y, Cb.x - aLength * Math.cos(a_left), Cb.y - 20 * Math.sin(a_left), {strokeWidth: 2})
             b.appendChild(l)
-            l = this.rc.line(Cb.x, Cb.y, Cb.x - aLength * Math.cos(aRight), Cb.y - 20 * Math.sin(aRight), {strokeWidth: 2})
+            l = this.rc.line(Cb.x, Cb.y, Cb.x - aLength * Math.cos(a_right), Cb.y - 20 * Math.sin(a_right), {strokeWidth: 2})
             b.appendChild(l)
         } else {
-            l = this.rc.line(Cb.x, Cb.y, Cb.x + aLength * Math.cos(aLeft), Cb.y + 20 * Math.sin(aLeft), {strokeWidth: 2})
+            a_left = vCB - 0.6 + Math.PI
+            a_right = vCB + 0.3 + Math.PI
+            l = this.rc.line(Cb.x, Cb.y, Cb.x + aLength * Math.cos(a_left), Cb.y + 20 * Math.sin(a_left), {strokeWidth: 2})
             b.appendChild(l)
-            l = this.rc.line(Cb.x, Cb.y, Cb.x + aLength * Math.cos(aRight), Cb.y + 20 * Math.sin(aRight), {strokeWidth: 2})
+            l = this.rc.line(Cb.x, Cb.y, Cb.x + aLength * Math.cos(a_right), Cb.y + 20 * Math.sin(a_right), {strokeWidth: 2})
             b.appendChild(l)
         }
+        // while developing and testing
+        //l = this.rc.line(Bac.x, Bac.y, B.x, B.y, {strokeWidth: 1, stroke: 'red'})
+        //b.appendChild(l)
+        //l = this.rc.circle(B.x, B.y, 20, {strokeWidth: 1, stroke: 'purple'})
+        //b.appendChild(l)
 
         // white background for popover-link
         node = document.createElementNS(URL_SNS, 'circle')
@@ -271,6 +323,4 @@ class RoughCld {
             this.info.innerHTML = text
         }
     }
-
-
 }

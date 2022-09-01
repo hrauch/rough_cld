@@ -39,7 +39,8 @@
 
 <div class="container mt-3">
 
-    <p>On top of canvas</p>
+    <h3>Example 1: very simple</h3>
+    <p>You can click on nodes and edges to get more informations (in german)</p>
 
     <div class="row mt-3">
         <div class="col-md-9">
@@ -51,19 +52,22 @@
     </div>
     <script>
         var rcld_456 = new RoughCld("svg_456")
-
         nodes = [
             [0, 500, 400, '#c49a4c', "#", "Hasen", "Hasen sind wichtig für das Überleben der Füchse."],
             [1, 200, 400, '#634a1d', "#93753b", "Füchse", "Füchse ernähren sich z.B. von Hasen."]
         ]
         edges = [
-            [0, 1, -100, 1, '#', 'Gibt es genug Hasen, so können Füchse ebenfalls leben.'],
+            [0, 1, 100, 1, '#', 'Gibt es genug Hasen, so können Füchse ebenfalls leben.'],
             [1, 0, 100, -1, '#', 'Die Füchse verhindern, dass sich die Hasen zu stark vermehren.']
         ]
         rcld_456.draw_cld(nodes, edges, true)
     </script>
 
-    <p>Below of canvas</p>
+    <h3>Example 2: Stepwise</h3>
+    <p>
+        Have a look at the right side of the page for the current informations (in german).
+        The buttons are on the bottom of this canvas.
+    </p>
 
     <div class="row mt-3">
         <div class="col-md-9">
@@ -82,21 +86,133 @@
     <script>
         var rcld_123 = new RoughCld("svg_123")
         
-        rcld_123.r = 40
+        rcld_123.r = 50
+        const light_blue = "#e0e0ff"
         nodes = [
-            [0, 100, 100, rcld_123.light_3_blue, "#", "Regen", "Genügend Regen fördert das Wachstum der Weide."],
-            [1, 350, 150, rcld_123.light_3_blue, "#", "Weide", "Eine üppige Weide ernährt zahlreiche Beutetiere wie z.B. Mäuse oder Kaninchen."],
-            [2, 200, 400, rcld_123.light_2_blue, "#", "Räuber", "Räuber ernähren sich z.B. von Mäusen oder Kaninchen."],
-            [3, 500, 400, rcld_123.light_2_blue, "#", "Beute", "Beutetiere sind z.B. Mäuse oder Kaninchen."]
-        ]
+                    [0, 100, 100, "#e0e0ff", "#", "Regen", "Der Regen ist die Basis allen Lebens"],
+                    [1, 300, 200, "#e0e0ff", "#", "Weide", "Nahrungsgrundlage für viele Beutetiere"], 
+                    [2, 400, 400, "#e0e0ff", "#", "Beute", "Nahrungsgrundlage für viele Jäger"], 
+                    [3, 100, 400, "#a00000", "#", "Jäger", "Spitze der Nahrungspyramide"]
+                ]
         edges = [
-            [0, 1, 30, 1, '#', 'Nur bei genügend viel Regen gibt es eine ertragreiche Weide.'],
-            [1, 3, 50, 1, '#', 'Eine saftige Weide kann zahlreiche Beutetiere ernähren.'],
-            [3, 2, -100, 1, '#', 'Gibt es genug Beutetiere, so können die Räuber ebenfalls leben.'],
-            [2, 3, 100, -1, '#', 'Die Räuber verhindern, dass die Beutetiere sich zu stark vermehren.']
-        ]
+                    [0, 1, 20, 1, "#", "Der Regen fördert das Wachstum der Pflanzen"], 
+                    [1, 2, 20, 1, "#", "Eine üppige Wiese kann viele Beutetiere ernähren"], 
+                    [2, 3, 60, 2, "#", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
+                    [3, 2, 60, -2, "#", "Jäger hält die Anazhl der Beutetiere im Gleichgewicht"]
+                ]
         rcld_123.draw_cld(nodes, edges, false)
     </script>
+
+    <h3>Example 3: Same as above without interaction</h3>
+    <p>You can click on nodes and edges to get more informations (in german)</p>
+
+    <div class="row mt-3">
+        <div class="col-md-9">
+            <svg id="svg_r571300928" width="800px" height="600px"></svg>
+        </div>
+        <div class="col-md-3">
+            <div id="svg_r571300928_info"></div>
+        </div>
+    </div>
+    
+    <script>
+        var rcld_r571300928 = new RoughCld("svg_r571300928")
+        rcld_123.r = 50
+        nodes = [
+                    [0, 100, 100, "#e0e0ff", "#", "Regen", "Der Regen ist die Basis allen Lebens"],
+                    [1, 300, 200, "#e0e0ff", "#", "Weide", "Nahrungsgrundlage für viele Beutetiere"], 
+                    [2, 400, 400, "#e0e0ff", "#", "Beute", "Nahrungsgrundlage für viele Jäger"], 
+                    [3, 100, 400, "#a00000", "#", "Jäger", "Spitze der Nahrungspyramide"]
+                ]
+        edges = [
+                    [0, 1, 20, 1, "#", "Der Regen fördert das Wachstum der Pflanzen"], 
+                    [1, 2, 20, 1, "#", "Eine üppige Wiese kann viele Beutetiere ernähren"], 
+                    [2, 3, 60, 2, "#", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
+                    [3, 2, 60, -2, "#", "Jäger hält die Anazhl der Beutetiere im Gleichgewicht"]
+                ]
+        rcld_r571300928.draw_cld(nodes, edges, true)
+
+        /*
+        // for developing and testing only
+        nodes = [
+                    [0, 300, 300, "#e0e0ff", "", "z", ""],
+                    [1, 100, 100, "#e0e0ff", "", "lo", ""],
+                    [2, 300, 100, "#e0e0ff", "", "mo", ""],
+                    [3, 500, 100, "#e0e0ff", "", "ro", ""],
+                    [4, 100, 300, "#e0e0ff", "", "l", ""],
+                    [5, 500, 300, "#e0e0ff", "", "r", ""],
+                    [6, 100, 600, "#e0e0ff", "", "lu", ""],
+                    [7, 300, 600, "#e0e0ff", "", "mu", ""],
+                    [8, 500, 600, "#e0e0ff", "", "ru", ""]
+                ]
+        edges = [
+                    [0, 1, 50, 1, "", ""],
+                    [0, 2, 10, 1, "", ""],
+                    [0, 3, 50, 1, "", ""],
+                    [0, 4, 50, 1, "", ""],
+                    [0, 5, 50, 1, "", ""],
+                    [0, 6, 50, 1, "", ""],
+                    [0, 7, 50, 1, "", ""],
+                    [0, 8, 50, 1, "", ""]
+                ]
+        edges = [
+                    [0, 1, -50, 1, "", ""],
+                    [0, 2, -50, 1, "", ""],
+                    [0, 3, -50, 1, "", ""],
+                    [0, 4, -50, 1, "", ""],
+                    [0, 5, -50, 1, "", ""],
+                    [0, 6, -50, 1, "", ""],
+                    [0, 7, -50, 1, "", ""],
+                    [0, 8, -50, 1, "", ""]
+                ]
+        edges = [
+                    [1, 0, 50, 1, "", ""],
+                    [2, 0, 50, 1, "", ""],
+                    [3, 0, 50, 1, "", ""],
+                    [4, 0, 50, 1, "", ""],
+                    [5, 0, 50, 1, "", ""],
+                    [6, 0, 50, 1, "", ""],
+                    [7, 0, 50, 1, "", ""],
+                    [8, 0, 50, 1, "", ""]
+                ]
+        edges = [
+                    //[0, 1, 50, 1, "", ""],
+                    //[1, 0, 50, 1, "", ""],
+                    //[0, 1, -50, 1, "", ""],
+                    //[1, 0, -50, 1, "", ""],
+                    //[0, 2, 50, 1, "", ""],
+                    //[2, 0, 50, 1, "", ""],
+                    //[0, 2, -50, 1, "", ""],
+                    //[2, 0, -50, 1, "", ""],
+                    //[0, 3, 50, 1, "", ""],
+                    //[3, 0, 50, 1, "", ""],
+                    //[0, 3, -50, 1, "", ""],
+                    //[3, 0, -50, 1, "", ""],
+                    //[0, 4, 50, 1, "", ""],
+                    //[4, 0, 50, 1, "", ""],
+                    //[0, 4, -50, 1, "", ""],
+                    //[4, 0, -50, 1, "", ""],
+                    //[0, 5, 50, 1, "", ""],
+                    //[5, 0, 50, 1, "", ""],
+                    //[0, 5, -50, 1, "", ""],
+                    //[5, 0, -50, 1, "", ""],
+                    //[0, 6, 50, 1, "", ""],
+                    //[6, 0, 50, 1, "", ""],
+                    //[0, 6, -50, 1, "", ""],
+                    //[6, 0, -50, 1, "", ""],
+                    //[0, 7, 50, 1, "", ""],
+                    //[7, 0, 50, 1, "", ""],
+                    //[0, 7, -50, 1, "", ""],
+                    //[7, 0, -50, 1, "", ""],
+                    //[0, 8, 50, 1, "", ""],
+                    //[8, 0, 50, 1, "", ""],
+                    //[0, 8, -50, 1, "", ""],
+                    //[8, 0, -50, 1, "", ""]
+                ]
+        */
+    </script>
+
+
 
 </div>
 

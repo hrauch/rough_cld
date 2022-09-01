@@ -5,7 +5,7 @@ rough_cld
 You can draw causal loop diagrams (CLD). This library uses roughjs for handdrawn circles and connections. You can draw multiple
 diagrams on one page. Rough_cld is based on Bootstrap (>= 5.2) .
 
-* You can show the diagram complete expanded. For every node and edge you can add some informations, which are displayed as popovers.
+* You can show the diagram completely expanded. For every node and edge you can add some informations, which are displayed as popovers.
 * Or you can show the diagram stepwise. In this case informations to each node or edge are shown beside the diagram. If you want you can go backward.
 
 # Use
@@ -83,12 +83,12 @@ Edges have a similar structure:
   - First item is an id from which node the connection is starting.
   - Second id describes the target of your connection.
   - With the *bend* parameter you tell the connector how much it is curved. With "+" and "-" you can change the side of the curved connection (100 vs -100).
-  - "1" means strengthening influence (+); -"1" means weakening influence.
-  - Next you describe the URL for more informations for this node. Normally you fill in "#".
+  - "1" means strengthening influence (+); -"1" means weakening influence. If you want a bolder curve use "2" or "-2".
+  - Next you describe the URL for more informations for this edge. Normally you fill in "#".
   - Then you declare the title of your popver dialog.
   - Last you write the additional infos for this node.
 
-If you want to show the complete (*true*) diagram, you call
+If you want to show the complete diagram (*true*), you call
   
     rcld_456.draw_cld(nodes, edges, true)
 
@@ -101,7 +101,27 @@ If you want to show the diagram stepwise you have to create control buttons. Sin
         </div>
     </div>  
   
-The last step is calling draw-cld with the complete parameter set to *false*:
+The last step is calling draw_cld with the complete parameter set to *false*:
   
     rcld_123.draw_cld(nodes, edges, false)
   
+
+# Python
+
+You can generate the nodes and edges by an additional Python program: *python generate_cld.py* . The model has to be described in the following way:
+
+    R = 60
+    causal_raw = """
+    Regen (1;1;#;Der Regen ist die Basis allen Lebens)
+    Weide (3;2;#;Nahrungsgrundlage für viele Beutetiere)
+    Beute (4;4;#;Nahrungsgrundlage für viele Jäger)
+    Jäger (1;4;#;Spitze der Nahrungspyramide;#a00000)
+    Regen +> Weide (2;#;Der Regen fördert das Wachstum der Pflanzen)
+    Weide +> Beute (2;#;Eine üppige Wiese kann viele Beutetiere ernähren)
+    Beute ++> Jäger (6;#;Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger)
+    Jäger --> Beute (6;#;Jäger hält die Anazhl der Beutetiere im Gleichgewicht)
+    """
+
+* The coordinates are calculated depending on *R*.
+* You don't have to use apostrophes for strings.
+* The *strength* is expressed by *++>* or *-->*. You shuoldn't use more then 3 plus or minus signs.

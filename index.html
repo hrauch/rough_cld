@@ -34,7 +34,6 @@
         --bs-popover-body-padding-x: 1rem;
         --bs-popover-body-padding-y: .5rem;
     }
-
 </style>
 
 <div class="container mt-3">
@@ -54,7 +53,7 @@
         var rcld_456 = new RoughCld("svg_456")
         nodes = [
             [0, 500, 400, '#c49a4c', "#", "Hasen", "Hasen sind wichtig für das Überleben der Füchse."],
-            [1, 200, 400, '#634a1d', "#93753b", "Füchse", "Füchse ernähren sich z.B. von Hasen."]
+            [1, 200, 400, '#634a1d', "#", "Füchse", "Füchse ernähren sich z.B. von Hasen."]
         ]
         edges = [
             [0, 1, 100, 1, '#', 'Gibt es genug Hasen, so können Füchse ebenfalls leben.'],
@@ -119,16 +118,16 @@
         var rcld_r571300928 = new RoughCld("svg_r571300928")
         rcld_123.r = 50
         nodes = [
-                    [0, 100, 100, "#e0e0ff", "#", "Regen", "Der Regen ist die Basis allen Lebens"],
+                    [0, 100, 100, "#e0e0ff", "#", "Regen", "Der Regen ist die Basis allen Lebens"], 
                     [1, 300, 200, "#e0e0ff", "#", "Weide", "Nahrungsgrundlage für viele Beutetiere"], 
                     [2, 400, 400, "#e0e0ff", "#", "Beute", "Nahrungsgrundlage für viele Jäger"], 
-                    [3, 100, 400, "#a00000", "#", "Jäger", "Spitze der Nahrungspyramide"]
+                    [3, 100, 400, "#a00000", "#e0e0ff", "Jäger", "Spitze der Nahrungspyramide"]
                 ]
         edges = [
                     [0, 1, 20, 1, "#", "Der Regen fördert das Wachstum der Pflanzen"], 
                     [1, 2, 20, 1, "#", "Eine üppige Wiese kann viele Beutetiere ernähren"], 
-                    [2, 3, 60, 2, "#", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
-                    [3, 2, 60, -2, "#", "Jäger hält die Anazhl der Beutetiere im Gleichgewicht"]
+                    [2, 3, 50, 2, "#", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
+                    [3, 2, 50, -2, "#", "Jäger hält die Anzahl der Beutetiere im Gleichgewicht"]
                 ]
         rcld_r571300928.draw_cld(nodes, edges, true)
 

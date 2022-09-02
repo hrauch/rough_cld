@@ -1,45 +1,34 @@
-import random
-import re
-import pprint
+"""
+generate_cld.py
 
+Generates causal loop diagramm in HTML format based on input file
 
-# causal_raw = """
-# Regen (2,1,blue)
-# Weide (5,2,green)
-# Beute (5,4):Z.B. Mäuse, Kaninchen, Würmer
-# Räuber (2,4,red):Z.B. Füchse
-#
-# Regen ++> Weide: Der Regen fördert das Wachstum
-# Weide +>> Beute: Das Gras ernährt die Beute
-# Beute ++>> Räuber: Nur bei genügend vielen Beutetieren können Räuber überleben
-# Räuber -> Beute: Das Anwachsen der Beutetiere wird begrenzt
-# Beute -> Weide: Nahrung wird geringer
-# """
-# Beute +> Weide: Die Beutetiere düngen die Weide
-R = 60
-causal_raw = """
-Regen (1;1;#;Der Regen ist die Basis allen Lebens)
-Weide (3;2;#;Nahrungsgrundlage für viele Beutetiere)
-Beute (4;4;#;Nahrungsgrundlage für viele Jäger)
-Jäger (1;4;#;Spitze der Nahrungspyramide;#a00000)
-Regen +> Weide (2;#;Der Regen fördert das Wachstum der Pflanzen)
-Weide +> Beute (2;#;Eine üppige Wiese kann viele Beutetiere ernähren)
-Beute ++> Jäger (6;#;Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger)
-Jäger --> Beute (6;#;Jäger hält die Anazhl der Beutetiere im Gleichgewicht)
+Hans Rauch
+(c) MIT LICENSE
+2022-09-02
+Version 0.86
 """
 
-#def get_js_line(tokens) -> str:
-#    """
-#    """
-#    n = 0
-#    tokens = list(tokens)
-#    while n < len(tokens):
-#        token = tokens[n]
-#        print (token.type, token.string)
+import random
+import re
+import sys
 
+causal_raw = """
+R = 60
+Regen (1;1;Der Regen ist die Basis allen Lebens)
+Weide (3;2;Nahrungsgrundlage für viele Beutetiere)
+Beute (4;4;Nahrungsgrundlage für viele Jäger)
+Jäger (1;4;Spitze der Nahrungspyramide;#a00000)
+
+Regen +> Weide (Der Regen fördert das Wachstum der Pflanzen;2)
+Weide +> Beute (Eine üppige Wiese kann viele Beutetiere ernähren;2)
+Beute ++> Jäger (Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger)
+Jäger --> Beute (Jäger hält die Anzahl der Beutetiere im Gleichgewicht)
+"""
 
 def get_node_id(nodes: list, name: str) -> int:
     """
+    find the node-id for <name>
     """
     for n in nodes:
         if n[5] == name:
@@ -49,15 +38,26 @@ def get_node_id(nodes: list, name: str) -> int:
 
 def generate_causal_diagram(raw: str) -> str:
     """
+    generate nodes and edges
     """
     nodes = []
     edges = []
     UID = 'r' + str(random.random())[2:11]
     base_color = '#e0e0ff'
 
+    R = 60
     lines = raw.strip().split('\n')
     for line in lines:
         line = line.strip()
+        # read radius
+        n_pos = line.find('=')
+        if n_pos > 0 and line.startswith('R'):
+            line = line[n_pos+1:]
+            try:
+                R = int(line.strip())
+            except:
+                pass
+            line = ""
         if line:
             com = re.search(r'[-,+]+>+', line)
             if com:
@@ -72,7 +72,6 @@ def generate_causal_diagram(raw: str) -> str:
                 else:
                     strength = -1 * strength
                 line = line[com.end():].strip()
-                print (line)
                 com = re.search(r'[\( ]', line)
                 if not com:
                     name_to = line.strip()
@@ -86,16 +85,15 @@ def generate_causal_diagram(raw: str) -> str:
                     if com:
                         line = line[1:-1]
                         items = line.split(";")
+                        info = items[0].strip()
                         try:
-                            bend = int(items[0]) * 10
-                            if bend == 0:
-                                bend = 50
+                            bend = int(items[1]) * 10
                         except:
                             pass
-                        if len(items) > 1:
-                            url = items[1].strip()
                         if len(items) > 2:
-                             info = items[2].strip()
+                            url = items[1].strip()
+                        elif info:
+                            url = '#'
                 edge = [name_from_id, name_to_id, bend, strength, url, info]
                 edges.append(edge)
             else:
@@ -112,16 +110,21 @@ def generate_causal_diagram(raw: str) -> str:
                             params.append(p.strip())
                         if len(raw_params) < 3:
                             params.append('')
-                            params.append('')
                             params.append(base_color)
+                            params.append('')
                         elif len(raw_params) < 4:
-                            params.append('')
                             params.append(base_color)
+                            params.append('')
                         elif len(raw_params) < 5:
                             params.append(base_color)
+
+                    if (params[2] and not params[4]):
+                        params[4] = '#'
                     d = (R - 10)*2
-                    node = [len(nodes), d*params[0], d*params[1], params[4], params[2], name, params[3]]
+                    node = [len(nodes), d*params[0], d*params[1], params[3], params[4], name, params[2]]
                 nodes.append(node)
+
+    # HTML template
 
     data = f"""
     <div class="row mt-3">
@@ -168,6 +171,23 @@ def generate_causal_diagram(raw: str) -> str:
 """
     return data.replace("'", '"')
 
-causal_text = generate_causal_diagram(causal_raw)
 
-print (causal_text)
+# read input file and generate output file
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print ('Usage: python generate_cls.py <filename>')
+    else:
+        filename = sys.argv[1]
+        n_pos = filename.rfind('.')
+        if n_pos > 0:
+            f_name = filename[:n_pos]
+        else:
+            f_name = filename
+        f_name += '.html'
+
+        with open(filename, 'r') as f:
+            causal_raw = f.read()
+        causal_text = generate_causal_diagram(causal_raw)
+        with open(f_name, 'w') as f:
+            f.write(causal_text)
+        print (f'Result: {f_name}')

@@ -1,0 +1,12 @@
+R = 60
+
+Regen (1;1;Der Regen ist die Basis allen Lebens)
+Weide (3;2;Nahrungsgrundlage für viele Beutetiere)
+Beute (4;4;Nahrungsgrundlage für viele Jäger)
+Jäger (1;4;Spitze der Nahrungspyramide;#a00000)
+
+Regen +> Weide (Der Regen fördert das Wachstum der Pflanzen;2)
+Weide +> Beute (Eine üppige Wiese kann viele Beutetiere ernähren;2)
+Beute ++> Jäger (Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger)
+Jäger --> Beute (Jäger hält die Anzahl der Beutetiere im Gleichgewicht)
+

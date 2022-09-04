@@ -4,7 +4,8 @@
  * Author: Hans Rauch
  * License: MIT License
  * Created: 2022-08-30
- * Version: 0.85
+ * Last modified: 2022-09-04
+ * Version: 0.87
  *
  * Draws causal loop diagrams in rough mode.
 */
@@ -54,7 +55,7 @@ class RoughCld {
         let link = null
         let svg_node = null
         
-        if (node.url != "" ) {
+        if ((node.url != "" ) || (node.info != "")) {
             link = this.get_popover(node.url, node.title, node.info)
         } else {
             link = this.svg

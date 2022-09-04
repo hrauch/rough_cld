@@ -52,12 +52,12 @@
     <script>
         var rcld_456 = new RoughCld("svg_456")
         nodes = [
-            [0, 500, 400, '#c49a4c', "#", "Hasen", "Hasen sind wichtig für das Überleben der Füchse."],
-            [1, 200, 400, '#634a1d', "#", "Füchse", "Füchse ernähren sich z.B. von Hasen."]
+            [0, 500, 400, '#c49a4c', "javascript://", "Hasen", "Hasen sind wichtig für das Überleben der Füchse."],
+            [1, 200, 400, '#634a1d', "javascript://", "Füchse", "Füchse ernähren sich z.B. von Hasen."]
         ]
         edges = [
-            [0, 1, 100, 1, '#', 'Gibt es genug Hasen, so können Füchse ebenfalls leben.'],
-            [1, 0, 100, -1, '#', 'Die Füchse verhindern, dass sich die Hasen zu stark vermehren.']
+            [0, 1, 100, 1, 'javascript://', 'Gibt es genug Hasen, so können Füchse ebenfalls leben.'],
+            [1, 0, 100, -1, 'javascript://', 'Die Füchse verhindern, dass sich die Hasen zu stark vermehren.']
         ]
         rcld_456.draw_cld(nodes, edges, true)
     </script>
@@ -88,16 +88,16 @@
         rcld_123.r = 50
         const light_blue = "#e0e0ff"
         nodes = [
-                    [0, 100, 100, "#e0e0ff", "#", "Regen", "Der Regen ist die Basis allen Lebens"],
-                    [1, 300, 200, "#e0e0ff", "#", "Weide", "Nahrungsgrundlage für viele Beutetiere"], 
-                    [2, 400, 400, "#e0e0ff", "#", "Beute", "Nahrungsgrundlage für viele Jäger"], 
-                    [3, 100, 400, "#a00000", "#", "Jäger", "Spitze der Nahrungspyramide"]
+                    [0, 100, 100, "#e0e0ff", "javascript://", "Regen", "Der Regen ist die Basis allen Lebens"],
+                    [1, 300, 200, "#e0e0ff", "javascript://", "Weide", "Nahrungsgrundlage für viele Beutetiere"], 
+                    [2, 400, 400, "#e0e0ff", "javascript://", "Beute", "Nahrungsgrundlage für viele Jäger"], 
+                    [3, 100, 400, "#a00000", "javascript://", "Jäger", "Spitze der Nahrungspyramide"]
                 ]
         edges = [
-                    [0, 1, 20, 1, "#", "Der Regen fördert das Wachstum der Pflanzen"], 
-                    [1, 2, 20, 1, "#", "Eine üppige Wiese kann viele Beutetiere ernähren"], 
-                    [2, 3, 60, 2, "#", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
-                    [3, 2, 60, -2, "#", "Jäger hält die Anazhl der Beutetiere im Gleichgewicht"]
+                    [0, 1, 20, 1, "javascript://", "Der Regen fördert das Wachstum der Pflanzen"], 
+                    [1, 2, 20, 1, "javascript://", "Eine üppige Wiese kann viele Beutetiere ernähren"], 
+                    [2, 3, 60, 2, "javascript://", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
+                    [3, 2, 60, -2, "javascript://", "Jäger hält die Anazhl der Beutetiere im Gleichgewicht"]
                 ]
         rcld_123.draw_cld(nodes, edges, false)
     </script>
@@ -117,17 +117,19 @@
     <script>
         var rcld_r571300928 = new RoughCld("svg_r571300928")
         rcld_123.r = 50
+        rcld_123.roughness = 5.0
+        rcld_123.bowing = 5.0
         nodes = [
-                    [0, 100, 100, "#e0e0ff", "#", "Regen", "Der Regen ist die Basis allen Lebens"], 
-                    [1, 300, 200, "#e0e0ff", "#", "Weide", "Nahrungsgrundlage für viele Beutetiere"], 
-                    [2, 400, 400, "#e0e0ff", "#", "Beute", "Nahrungsgrundlage für viele Jäger"], 
-                    [3, 100, 400, "#a00000", "#e0e0ff", "Jäger", "Spitze der Nahrungspyramide"]
+                    [0, 100, 100, "#e0e0ff", "javascript://", "Regen", "Der Regen ist die Basis allen Lebens"], 
+                    [1, 300, 200, "#e0e0ff", "javascript://", "Weide", "Nahrungsgrundlage für viele Beutetiere"], 
+                    [2, 400, 400, "#e0e0ff", "javascript://", "Beute", "Nahrungsgrundlage für viele Jäger"], 
+                    [3, 100, 400, "#a00000", "javascript://", "Jäger", "Spitze der Nahrungspyramide"]
                 ]
         edges = [
-                    [0, 1, 20, 1, "#", "Der Regen fördert das Wachstum der Pflanzen"], 
-                    [1, 2, 20, 1, "#", "Eine üppige Wiese kann viele Beutetiere ernähren"], 
-                    [2, 3, 50, 2, "#", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
-                    [3, 2, 50, -2, "#", "Jäger hält die Anzahl der Beutetiere im Gleichgewicht"]
+                    [0, 1, 20, 1, "javascript://", "Der Regen fördert das Wachstum der Pflanzen"], 
+                    [1, 2, 20, 1, "javascript://", "Eine üppige Wiese kann viele Beutetiere ernähren"], 
+                    [2, 3, 50, 2, "javascript://", "Viele Beutetiere sind eine gute Nahrungsgrundlage für Jäger"], 
+                    [3, 2, 50, -2, "javascript://", "Jäger hält die Anzahl der Beutetiere im Gleichgewicht"]
                 ]
         rcld_r571300928.draw_cld(nodes, edges, true)
 

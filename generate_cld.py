@@ -118,8 +118,8 @@ def generate_causal_diagram(raw: str) -> str:
                         elif len(raw_params) < 5:
                             params.append(base_color)
 
-                    if (params[2] and not params[4]):
-                        params[4] = '#'
+                    if (params[2] and not params[4]) or params[4] == '#':
+                        params[4] = 'javascript://'
                     d = (R - 10)*2
                     node = [len(nodes), d*params[0], d*params[1], params[3], params[4], name, params[2]]
                 nodes.append(node)

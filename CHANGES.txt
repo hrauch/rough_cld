@@ -1,5 +1,8 @@
 rough_cld_steps.js
 
+0.87 2022-09-04 "javascript://" instead of "#" for popovers
+                https://stackoverflow.com/questions/12590523/clicking-a-popover-scrolls-back-to-top-of-the-page-bootstrap-and-django
+
 0.86 2022-09-02 generate_cld.py uses input and output files
                 modified input structure for generate_cld.py
                 

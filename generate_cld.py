@@ -175,7 +175,7 @@ def generate_causal_diagram(raw: str) -> str:
 # read input file and generate output file
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print ('Usage: python generate_cls.py <filename>')
+        print ('Usage: python generate_cld.py <filename>')
     else:
         filename = sys.argv[1]
         n_pos = filename.rfind('.')

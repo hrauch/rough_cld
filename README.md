@@ -8,6 +8,8 @@ diagrams on one page. Rough_cld is based on Bootstrap (>= 5.2) .
 * You can show the diagram completely expanded. For every node and edge you can add some informations, which are displayed as popovers.
 * Or you can show the diagram stepwise. In this case informations to each node or edge are shown beside the diagram. If you want you can go backward.
 
+![Example for causal loop](screenshot.png "Causal loop diagram in rough mode")
+
 # Use
 
 The head of your HTML page should look like this:
@@ -125,3 +127,8 @@ You can generate the nodes and edges by an additional Python program: *python ge
 * The coordinates are calculated depending on *R*.
 * You don't have to use apostrophes for strings.
 * The *strength* is expressed by *++>* or *-->*. You shuoldn't use more then 3 plus or minus signs.
+
+# See also
+
+* [Loopy](https://ncase.me/loopy/)
+* [Fork of Loopy](https://github.com/schucan/loopy)

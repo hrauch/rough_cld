@@ -4,15 +4,16 @@
  * Author: Hans Rauch
  * License: MIT License
  * Created: 2022-08-30
- * Last modified: 2022-09-04
- * Version: 0.87
+ * Last modified: 2022-09-21
+ * Version: 0.88
  *
  * Draws causal loop diagrams in rough mode.
 */
  
-const URL_SNS = "http://www.w3.org/2000/svg"
 
 class RoughCld {
+    
+    URL_SNS = "http://www.w3.org/2000/svg"
     
     info = null
     svg = null      // canvas
@@ -36,7 +37,7 @@ class RoughCld {
 
     get_popover(url, title, info) {
         // create bootstrap popover
-        let link = document.createElementNS(URL_SNS, "a");
+        let link = document.createElementNS(this.URL_SNS, "a");
         link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', url);
         link.setAttributeNS(null,"tabindex", "0")
         link.setAttributeNS(null,"class", "d-inline-block")
@@ -62,7 +63,7 @@ class RoughCld {
         }
 
         // white background for popover-link
-        svg_node = document.createElementNS(URL_SNS, 'circle')
+        svg_node = document.createElementNS(this.URL_SNS, 'circle')
         svg_node.setAttributeNS(null,"cx", node.x)     
         svg_node.setAttributeNS(null,"cy", node.y) 
         svg_node.setAttributeNS(null,"r", this.r) 
@@ -74,7 +75,7 @@ class RoughCld {
         link.appendChild(svg_node)
         
         // title
-        svg_node = document.createElementNS(URL_SNS, 'text')
+        svg_node = document.createElementNS(this.URL_SNS, 'text')
         svg_node.setAttributeNS(null,"x", node.x)     
         svg_node.setAttributeNS(null,"y", node.y) 
         svg_node.setAttributeNS(null,"dy", 24 / 4) 
@@ -200,7 +201,7 @@ class RoughCld {
         //b.appendChild(l)
 
         // white background for popover-link
-        node = document.createElementNS(URL_SNS, 'circle')
+        node = document.createElementNS(this.URL_SNS, 'circle')
         node.setAttributeNS(null,"cx", B.x)     
         node.setAttributeNS(null,"cy", B.y) 
         node.setAttributeNS(null,"r", 20) 
@@ -214,7 +215,7 @@ class RoughCld {
         }
         link.appendChild(node)
         // + or -
-        node = document.createElementNS(URL_SNS, 'text')
+        node = document.createElementNS(this.URL_SNS, 'text')
         node.setAttributeNS(null,"x", B.x)
         node.setAttributeNS(null,"y", B.y) 
         node.setAttributeNS(null,"dy", 28 / 4) 

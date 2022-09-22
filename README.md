@@ -3,12 +3,14 @@
 rough_cld
 
 You can draw causal loop diagrams (CLD). This library uses roughjs for handdrawn circles and connections. You can draw multiple
-diagrams on one page. Rough_cld is based on Bootstrap (>= 5.2) .
+diagrams on one page. Rough_cld is based on Bootstrap (>= 5.2).
 
 * You can show the diagram completely expanded. For every node and edge you can add some informations, which are displayed as popovers.
 * Or you can show the diagram stepwise. In this case informations to each node or edge are shown beside the diagram. If you want you can go backward.
 
 ![Example for causal loop](screenshot.png "Causal loop diagram in rough mode")
+
+You can try this [demo](https://assets.eloqueasy.de/rough_cld/).
 
 # Use
 
@@ -130,5 +132,6 @@ You can generate the nodes and edges by an additional Python program: *python ge
 
 # See also
 
+* [Roughjs](https://roughjs.com/)
 * [Loopy](https://ncase.me/loopy/)
 * [Fork of Loopy](https://github.com/schucan/loopy)

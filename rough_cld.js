@@ -275,17 +275,14 @@ class RoughCld {
         let text = ""
         let curr = Math.floor(this.n_curr / 2)
         if (curr < this.edges.length) {
-            from = this.edges[curr].from
-            to = this.edges[curr].to
-            if (this.n_curr % 2 == 0) {
                 this.obj_edges.push(this.create_edge(this.edges[curr]))
                 this.obj_nodes.push(this.create_node(this.nodes[from]))
-                if (this.n_curr == 0) {
-                    text += "<h3>" + this.nodes[from].title + "</h3>\n"
-                    text += "<p>" + this.nodes[from].info + "</p>"
-                }
                 text += "<h4>" + this.nodes[from].title + " &rarr; " + this.nodes[to].title + "</h4>\n"
-                text += "<p>" + this.edges[curr].info + "</p>\n"
+                if (this.n_curr == 0) {
+                    text += "<p>" + this.nodes[from].info + " &rarr; " + this.edges[curr].info + "</p>"
+                } else {
+                    text += "<p>" + this.edges[curr].info + "</p>\n"
+                }
             } else {
                 this.obj_nodes.push(this.create_node(this.nodes[to]))
                 text += "<h3>" + this.nodes[to].title + "</h3>\n"
